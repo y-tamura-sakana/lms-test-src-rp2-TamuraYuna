@@ -1,6 +1,7 @@
 package jp.co.sss.lms.ct.f01_login1;
 
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -36,8 +37,14 @@ public class Case01 {
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
-		webDriver.get("http://localhost:8080/lms/");
 
+		String topUrl = "http://localhost:8080/lms/";
+		webDriver.get(topUrl);
+
+		//ログイン画面遷移の確認処理
+		assertEquals(topUrl, webDriver.getCurrentUrl());
+
+		//エビデンス取得
 		getEvidence(new Object() {
 		});
 	}

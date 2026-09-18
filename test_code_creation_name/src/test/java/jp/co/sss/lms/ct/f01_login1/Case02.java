@@ -39,7 +39,13 @@ public class Case02 {
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
-		webDriver.get("http://localhost:8080/lms/");
+		String topUrl = "http://localhost:8080/lms/";
+		webDriver.get(topUrl);
+
+		//ログイン画面遷移の確認処理
+		assertEquals(topUrl, webDriver.getCurrentUrl());
+
+		//エビデンスの取得
 		getEvidence(new Object() {
 		});
 	}

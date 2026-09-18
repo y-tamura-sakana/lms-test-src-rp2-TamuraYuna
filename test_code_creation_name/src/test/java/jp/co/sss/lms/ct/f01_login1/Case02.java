@@ -54,11 +54,11 @@ public class Case02 {
 		//入力値の入力
 		WebElement id = webDriver.findElement(By.id("loginId"));
 		id.clear();
-		id.sendKeys("123456");
+		id.sendKeys("1234567");
 
 		WebElement password = webDriver.findElement(By.id("password"));
 		password.clear();
-		password.sendKeys("123456");
+		password.sendKeys("1234567");
 
 		//ログインボタン押下
 		webDriver.findElement(By.cssSelector(".btn.btn-primary")).click();

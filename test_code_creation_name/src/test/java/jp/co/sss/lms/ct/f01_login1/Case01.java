@@ -31,11 +31,14 @@ public class Case01 {
 		closeDriver();
 	}
 
+	/** test01　トップ画面へアクセスし、ログイン画面へ遷移する */
 	@Test
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
-		// TODO ここに追加
+		webDriver.get("http://localhost:8080/lms/");
+		getEvidence(new Object() {
+		});
 	}
 
 }

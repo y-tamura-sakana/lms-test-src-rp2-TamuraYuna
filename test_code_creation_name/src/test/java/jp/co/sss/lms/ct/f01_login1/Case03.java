@@ -21,7 +21,7 @@ import org.openqa.selenium.WebElement;
 @TestMethodOrder(OrderAnnotation.class)
 @DisplayName("ケース03 受講生 ログイン 正常系")
 public class Case03 {
-
+	
 	//トップ画面
 	final String topUrl = "http://localhost:8080/lms/";
 
@@ -44,7 +44,7 @@ public class Case03 {
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
-
+		
 		goTo(topUrl);
 
 		//ログイン画面遷移の確認処理

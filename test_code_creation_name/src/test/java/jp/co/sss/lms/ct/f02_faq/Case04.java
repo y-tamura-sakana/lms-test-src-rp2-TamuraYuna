@@ -57,7 +57,6 @@ public class Case04 {
 	void test01() {
 
 		goTo(topUrl);
-		webDriver.get(topUrl);
 
 		//ログイン画面遷移の確認処理
 		assertEquals(topUrl, webDriver.getCurrentUrl());

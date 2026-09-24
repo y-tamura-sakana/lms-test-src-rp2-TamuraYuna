@@ -74,8 +74,6 @@ public class Case04 {
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
 
-		goTo(topUrl);
-
 		//入力値の入力
 		WebElement id = webDriver.findElement(By.id("loginId"));
 		id.clear();
@@ -104,9 +102,6 @@ public class Case04 {
 	@DisplayName("テスト03 上部メニューの「ヘルプ」リンクからヘルプ画面に遷移")
 	void test03() {
 
-		//コース詳細画面へ遷移
-		goTo(courseDetailUrl);
-
 		//ヘルプ画面へ遷移
 		WebElement menu = webDriver.findElement(By.cssSelector(".dropdown-toggle"));
 		menu.click();
@@ -129,9 +124,6 @@ public class Case04 {
 	@Order(4)
 	@DisplayName("テスト04 「よくある質問」リンクからよくある質問画面を別タブに開く")
 	void test04() {
-
-		//ヘルプ画面まで遷移
-		goTo(helpUrl);
 
 		//よくある質問へ遷移
 		final WebElement question = webDriver.findElement(By.linkText("よくある質問"));

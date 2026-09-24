@@ -65,7 +65,6 @@ public class Case03 {
 	@Order(2)
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
-		goTo(topUrl);
 
 		//入力値の入力
 		WebElement id = webDriver.findElement(By.id("loginId"));

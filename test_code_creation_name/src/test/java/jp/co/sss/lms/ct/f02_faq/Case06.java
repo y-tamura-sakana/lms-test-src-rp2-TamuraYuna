@@ -48,6 +48,9 @@ public class Case06 {
 		closeDriver();
 	}
 
+	/**
+	 * test06-01 トップページへアクセスし、ログイン画面が表示される
+	 * */
 	@Test
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
@@ -63,6 +66,9 @@ public class Case06 {
 		});
 	}
 
+	/**
+	 * test06-02 ログインに成功する
+	 * */
 	@Test
 	@Order(2)
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
@@ -90,6 +96,9 @@ public class Case06 {
 		});
 	}
 
+	/**
+	 * test04-03 ヘルプ画面へ遷移し、表示させる
+	 * */
 	@Test
 	@Order(3)
 	@DisplayName("テスト03 上部メニューの「ヘルプ」リンクからヘルプ画面に遷移")
@@ -113,6 +122,9 @@ public class Case06 {
 		});
 	}
 
+	/**
+	 * test04-04 別タブでよくある質問画面へ遷移し、表示させる
+	 * */
 	@Test
 	@Order(4)
 	@DisplayName("テスト04 「よくある質問」リンクからよくある質問画面を別タブに開く")
@@ -134,20 +146,67 @@ public class Case06 {
 				break;
 			}
 		}
+
+		//画面遷移確認
+		assertEquals(questionUrl, webDriver.getCurrentUrl());
+
+		//エビデンス取得
+		getEvidence(new Object() {
+		});
 	}
 
+	/**
+	 * test06-05 よくある質問画面でカテゴリ検索をし、該当結果を表示させる
+	 * */
 	@Test
 	@Order(5)
 	@DisplayName("テスト05 カテゴリ検索で該当カテゴリの検索結果だけ表示")
 	void test05() {
-		// TODO ここに追加
+
+		//よくある質問画面へ遷移
+		goTo(questionUrl);
+
+		//カテゴリ検索の「研修関係」リンクをクリック
+		webDriver.findElement(By.partialLinkText("研修関係")).click();
+
+		//検索結果までスクロール
+		scrollBy("5000");
+
+		//検索確認
+		String categryUrl = "http://localhost:8080/lms/faq?frequentlyAskedQuestionCategoryId=1";
+		assertEquals(categryUrl, webDriver.getCurrentUrl());
+
+		//assertEquals(, );
+
+		//エビデンス取得
+		getEvidence(new Object() {
+		});
+
 	}
 
+	/**
+	 * test06-06 よくある質問画面でカテゴリ検索の該当結果の解答を表示させる
+	 * */
 	@Test
 	@Order(6)
 	@DisplayName("テスト06 検索結果の質問をクリックしその回答を表示")
 	void test06() {
-		// TODO ここに追加
+
+		//よくある質問画面へ遷移
+		goTo(questionUrl);
+
+		//カテゴリ検索の「研修関係」リンクをクリック
+		webDriver.findElement(By.partialLinkText("研修関係")).click();
+
+		//検索結果までスクロール
+		scrollBy("5000");
+
+		//検索結果の「キャンセル料・途中退校について」をクリック
+		webDriver.findElement(By.cssSelector("tbody dt")).click();
+
+		//エビデンス取得
+		getEvidence(new Object() {
+		});
 	}
 
 }

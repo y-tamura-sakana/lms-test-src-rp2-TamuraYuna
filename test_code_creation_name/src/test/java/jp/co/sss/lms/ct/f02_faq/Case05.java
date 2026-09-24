@@ -176,9 +176,25 @@ public class Case05 {
 		//「検索」ボタンをクリック
 		webDriver.findElement(By.cssSelector("input[type='submit'][value='検索']"));
 
-		//エビデンスの取得
+		//検索機能確認
+		String keySearch = "http://localhost:8080/lms/faq?keyword=研修";
+		assertEquals(keySearch, webDriver.getCurrentUrl());
+
+		WebElement results = webDriver.findElement(By.cssSelector("tbody tr td dl dt.mb10 span:nth-child(2)"));
+
+		//エビデンスの取得（検索）
+		String suffix = null;
+		suffix = "01_該当キーワードの検索";
 		getEvidence(new Object() {
-		});
+		}, suffix);
+
+		//スクロール
+		scrollBy("5000");
+
+		//エビデンスの取得（検索結果）
+		suffix = "02_該当キーワードの検索結果";
+		getEvidence(new Object() {
+		}, suffix);
 	}
 
 	/**
@@ -201,6 +217,9 @@ public class Case05 {
 
 		//「クリア」ボタンをクリック
 		webDriver.findElement(By.cssSelector("input[type='button'][value='クリア']"));
+
+		//確認
+		assertEquals("", inputSearch.getAttribute("value"));
 
 		//エビデンスの取得
 		getEvidence(new Object() {

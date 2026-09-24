@@ -48,10 +48,14 @@ public class Case04 {
 		closeDriver();
 	}
 
+	/**
+	 * test04-01 トップページへアクセスし、ログイン画面が表示される
+	 * */
 	@Test
 	@Order(1)
 	@DisplayName("テスト01 トップページURLでアクセス")
 	void test01() {
+
 		goTo(topUrl);
 		webDriver.get(topUrl);
 
@@ -63,10 +67,14 @@ public class Case04 {
 		});
 	}
 
+	/**
+	 * test04-02 ログインに成功する
+	 * */
 	@Test
 	@Order(2)
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
+
 		goTo(topUrl);
 
 		//入力値の入力
@@ -89,6 +97,9 @@ public class Case04 {
 		});
 	}
 
+	/**
+	 * test04-03 ヘルプ画面へ遷移し、表示させる
+	 * */
 	@Test
 	@Order(3)
 	@DisplayName("テスト03 上部メニューの「ヘルプ」リンクからヘルプ画面に遷移")
@@ -112,6 +123,9 @@ public class Case04 {
 		});
 	}
 
+	/**
+	 * test04-04 別タブでよくある質問画面へ遷移し、表示させる
+	 * */
 	@Test
 	@Order(4)
 	@DisplayName("テスト04 「よくある質問」リンクからよくある質問画面を別タブに開く")

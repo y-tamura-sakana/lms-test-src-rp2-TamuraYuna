@@ -3,6 +3,7 @@ package jp.co.sss.lms.ct.f02_faq;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.AfterAll;
@@ -74,8 +75,6 @@ public class Case05 {
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
 
-		goTo(topUrl);
-
 		//入力値の入力
 		WebElement id = webDriver.findElement(By.id("loginId"));
 		id.clear();
@@ -104,9 +103,6 @@ public class Case05 {
 	@DisplayName("テスト03 上部メニューの「ヘルプ」リンクからヘルプ画面に遷移")
 	void test03() {
 
-		//コース詳細画面へ遷移
-		goTo(courseDetailUrl);
-
 		//ヘルプ画面へ遷移
 		WebElement menu = webDriver.findElement(By.cssSelector(".dropdown-toggle"));
 		menu.click();
@@ -129,9 +125,6 @@ public class Case05 {
 	@Order(4)
 	@DisplayName("テスト04 「よくある質問」リンクからよくある質問画面を別タブに開く")
 	void test04() {
-
-		//ヘルプ画面まで遷移
-		goTo(helpUrl);
 
 		//よくある質問へ遷移
 		final WebElement question = webDriver.findElement(By.linkText("よくある質問"));
@@ -163,8 +156,8 @@ public class Case05 {
 	@DisplayName("テスト05 キーワード検索で該当キーワードを含む検索結果だけ表示")
 	void test05() {
 
-		//よくある質問画面へ遷移
-		goTo(questionUrl);
+		//画面の最大化
+		webDriver.manage().window().maximize();
 
 		//キーワード検索欄をクリック
 		WebElement inputSearch = webDriver.findElement(By.id("form"));
@@ -174,13 +167,13 @@ public class Case05 {
 		inputSearch.sendKeys("研修");
 
 		//「検索」ボタンをクリック
-		webDriver.findElement(By.cssSelector("input[type='submit'][value='検索']"));
+		webDriver.findElement(By.cssSelector("input[type='submit'][value='検索']")).click();
 
-		//検索機能確認
-		String keySearch = "http://localhost:8080/lms/faq?keyword=研修";
+		//検索URLの確認
+		String keySearch = "http://localhost:8080/lms/faq?keyword=%E7%A0%94%E4%BF%AE";
 		assertEquals(keySearch, webDriver.getCurrentUrl());
 
-		WebElement results = webDriver.findElement(By.cssSelector("tbody tr td dl dt.mb10 span:nth-child(2)"));
+		List<WebElement> results = webDriver.findElements(By.cssSelector("tbody tr td dl"));
 
 		//エビデンスの取得（検索）
 		String suffix = null;
@@ -189,12 +182,31 @@ public class Case05 {
 		}, suffix);
 
 		//スクロール
-		scrollBy("5000");
+		scrollTo("7000");
+
+		//各検索結果を開く
+		for (WebElement qElement : results) {
+			// Q（アコーディオン）をクリックして開く
+			qElement.click();
+
+			scrollBy("100");
+		}
+
+		//検索結果がnullでないか確認
+		assertFalse(results.isEmpty());
+
+		//検索結果に「研修」が含まれているか確認
+		for (WebElement e : results) {
+			assertTrue(e.getText().contains("研修"), "「研修」が含まれていません「 " + e.getText() + " 」");
+		}
 
 		//エビデンスの取得（検索結果）
 		suffix = "02_該当キーワードの検索結果";
 		getEvidence(new Object() {
 		}, suffix);
+
+		//画面上部へ戻す
+		scrollTo("0");
 	}
 
 	/**
@@ -205,18 +217,9 @@ public class Case05 {
 	@DisplayName("テスト06 「クリア」ボタン押下で入力したキーワードを消去")
 	void test06() {
 
-		//よくある質問画面へ遷移
-		goTo(questionUrl);
-
-		//キーワード検索欄をクリック
-		WebElement inputSearch = webDriver.findElement(By.id("form"));
-		inputSearch.click();
-
-		//キーワード検索欄に「研修」と入力
-		inputSearch.sendKeys("研修");
-
 		//「クリア」ボタンをクリック
-		webDriver.findElement(By.cssSelector("input[type='button'][value='クリア']"));
+		WebElement inputSearch = webDriver.findElement(By.id("form"));
+		webDriver.findElement(By.cssSelector("input[type='button'][value='クリア']")).click();
 
 		//確認
 		assertEquals("", inputSearch.getAttribute("value"));

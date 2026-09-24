@@ -3,6 +3,7 @@ package jp.co.sss.lms.ct.f02_faq;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.AfterAll;
@@ -74,8 +75,6 @@ public class Case06 {
 	@DisplayName("テスト02 初回ログイン済みの受講生ユーザーでログイン")
 	void test02() {
 
-		goTo(topUrl);
-
 		//入力値の入力
 		WebElement id = webDriver.findElement(By.id("loginId"));
 		id.clear();
@@ -104,9 +103,6 @@ public class Case06 {
 	@DisplayName("テスト03 上部メニューの「ヘルプ」リンクからヘルプ画面に遷移")
 	void test03() {
 
-		//コース詳細画面へ遷移
-		goTo(courseDetailUrl);
-
 		//ヘルプ画面へ遷移
 		WebElement menu = webDriver.findElement(By.cssSelector(".dropdown-toggle"));
 		menu.click();
@@ -129,9 +125,6 @@ public class Case06 {
 	@Order(4)
 	@DisplayName("テスト04 「よくある質問」リンクからよくある質問画面を別タブに開く")
 	void test04() {
-
-		//ヘルプ画面まで遷移
-		goTo(helpUrl);
 
 		//よくある質問へ遷移
 		final WebElement question = webDriver.findElement(By.linkText("よくある質問"));
@@ -163,24 +156,35 @@ public class Case06 {
 	@DisplayName("テスト05 カテゴリ検索で該当カテゴリの検索結果だけ表示")
 	void test05() {
 
-		//よくある質問画面へ遷移
-		goTo(questionUrl);
-
 		//カテゴリ検索の「研修関係」リンクをクリック
 		webDriver.findElement(By.partialLinkText("研修関係")).click();
 
+		//エビデンス取得（カテゴリ検索欄）
+		String suffix = "01_該当カテゴリの検索";
+		getEvidence(new Object() {
+		}, suffix);
+
 		//検索結果までスクロール
 		scrollBy("5000");
+
+		//エビデンス取得
+		suffix = "02_該当カテゴリの検索結果";
+		getEvidence(new Object() {
+		}, suffix);
 
 		//検索確認
 		String categryUrl = "http://localhost:8080/lms/faq?frequentlyAskedQuestionCategoryId=1";
 		assertEquals(categryUrl, webDriver.getCurrentUrl());
 
-		//assertEquals(, );
+		//検索結果箇所指定
+		List<WebElement> results = webDriver.findElements(By.cssSelector("tbody tr td dl"));
 
-		//エビデンス取得
-		getEvidence(new Object() {
-		});
+		//検索結果がnullでないか指定
+		assertFalse(results.isEmpty());
+
+		//該当検索結果の確認
+		assertEquals("Q.キャンセル料・途中退校について", results.getFirst().getText());
+		assertEquals("Q.研修の申し込みはどのようにすれば良いですか？", results.getLast().getText());
 
 	}
 
@@ -192,17 +196,30 @@ public class Case06 {
 	@DisplayName("テスト06 検索結果の質問をクリックしその回答を表示")
 	void test06() {
 
-		//よくある質問画面へ遷移
-		goTo(questionUrl);
-
 		//カテゴリ検索の「研修関係」リンクをクリック
 		webDriver.findElement(By.partialLinkText("研修関係")).click();
 
 		//検索結果までスクロール
 		scrollBy("5000");
 
-		//検索結果の「キャンセル料・途中退校について」をクリック
-		webDriver.findElement(By.cssSelector("tbody dt")).click();
+		//検索結果箇所指定
+		List<WebElement> results = webDriver.findElements(By.cssSelector("tbody tr td dl"));
+
+		//各検索結果を開く
+		for (WebElement qElement : results) {
+			// Q（アコーディオン）をクリックして開く
+			qElement.click();
+
+			scrollBy("100");
+		}
+
+		WebElement answer = webDriver.findElement(By.id("answer-h[${status.index}]"));
+
+		String firstAnswer = "A. 受講者の退職や解雇等、やむを得ない事情による途中終了に関してなど、"
+				+ "事情をお伺いした上で、協議という形を取らせて頂きます。"
+				+ " 弊社営業担当までご相談下さい。";
+
+		assertEquals(firstAnswer, answer.getText());
 
 		//エビデンス取得
 		getEvidence(new Object() {

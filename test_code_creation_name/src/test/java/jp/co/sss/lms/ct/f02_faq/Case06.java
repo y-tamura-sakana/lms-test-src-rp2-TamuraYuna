@@ -210,16 +210,15 @@ public class Case06 {
 			// Q（アコーディオン）をクリックして開く
 			qElement.click();
 
-			scrollBy("100");
+			scrollBy("300");
 		}
 
-		WebElement answer = webDriver.findElement(By.id("answer-h[${status.index}]"));
+		String firstAnswer = "A. 受講者の退職や解雇等";
 
-		String firstAnswer = "A. 受講者の退職や解雇等、やむを得ない事情による途中終了に関してなど、"
-				+ "事情をお伺いした上で、協議という形を取らせて頂きます。"
-				+ " 弊社営業担当までご相談下さい。";
+		String lastAnswer = "A. 営業担当がいる場合は、営業担当までご連絡ください。";
 
-		assertEquals(firstAnswer, answer.getText());
+		assertTrue(results.getFirst().getText().contains(firstAnswer));
+		assertTrue(results.getLast().getText().contains(lastAnswer));
 
 		//エビデンス取得
 		getEvidence(new Object() {

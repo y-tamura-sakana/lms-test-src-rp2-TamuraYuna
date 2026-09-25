@@ -81,6 +81,10 @@ public class Case03 {
 		//画面遷移の確認
 		assertEquals(courseDetailUrl, webDriver.getCurrentUrl());
 
+		//ログインアカウントの確認
+		WebElement userElement = webDriver.findElement(By.partialLinkText("ようこそ"));
+		assertEquals("ようこそ受講生ＡＡ１さん", userElement.getText());
+
 		//エビデンスの取得
 		getEvidence(new Object() {
 		});

@@ -37,6 +37,12 @@ public class Case06 {
 	//よくある質問画面
 	final String questionUrl = "http://localhost:8080/lms/faq";
 
+	//画面下部
+	final String down = "5000";
+
+	//画面上部
+	final String top = "0";
+
 	/** 前処理 */
 	@BeforeAll
 	static void before() {
@@ -169,7 +175,7 @@ public class Case06 {
 		}, suffix);
 
 		//検索結果までスクロール
-		scrollBy("5000");
+		scrollBy(down);
 
 		//エビデンス取得
 		suffix = "02_該当カテゴリの検索結果";
@@ -204,7 +210,7 @@ public class Case06 {
 		webDriver.findElement(By.partialLinkText("研修関係")).click();
 
 		//検索結果までスクロール
-		scrollBy("5000");
+		scrollBy(down);
 
 		//検索結果箇所指定
 		List<WebElement> results = webDriver.findElements(By.cssSelector("tbody tr td dl"));

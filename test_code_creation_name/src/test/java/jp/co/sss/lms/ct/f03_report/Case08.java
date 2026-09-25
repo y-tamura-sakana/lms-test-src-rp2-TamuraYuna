@@ -40,6 +40,9 @@ public class Case08 {
 	//レポート詳細画面
 	final String reportDetailUrl = "http://localhost:8080/lms/report/detail";
 
+	//画面下部
+	final String down = "5000";
+
 	/** 前処理 */
 	@BeforeAll
 	static void before() {
@@ -129,7 +132,7 @@ public class Case08 {
 		visibilityTimeout(checkPath, 5);
 
 		//「週報【デモ】を提出する」を押下
-		scrollTo("3000");
+		scrollTo(down);
 		WebElement submission = webDriver.findElement(checkPath);
 		submission.click();
 
@@ -158,7 +161,7 @@ public class Case08 {
 		webDriver.findElement(fieldValue).sendKeys("1");
 
 		//ページ下部へスクロール
-		scrollTo("3000");
+		scrollTo(down);
 
 		String[] reportValues = {
 				"1", //目標の達成度

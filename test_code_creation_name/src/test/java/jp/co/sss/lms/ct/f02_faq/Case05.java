@@ -37,6 +37,12 @@ public class Case05 {
 	//よくある質問画面
 	final String questionUrl = "http://localhost:8080/lms/faq";
 
+	//画面下部
+	final String down = "5000";
+
+	//画面上部
+	final String top = "0";
+
 	/** 前処理 */
 	@BeforeAll
 	static void before() {
@@ -186,7 +192,7 @@ public class Case05 {
 		}, suffix);
 
 		//スクロール
-		scrollTo("7000");
+		scrollTo(down);
 
 		//各検索結果を開く
 		for (WebElement qElement : results) {
@@ -210,7 +216,7 @@ public class Case05 {
 		}, suffix);
 
 		//画面上部へ戻す
-		scrollTo("0");
+		scrollTo(top);
 	}
 
 	/**

@@ -321,7 +321,7 @@ public class Case09 {
 		//ページ下部へスクロール
 		scrollTo(down);
 
-		//エビデンス取得★いちおかしい
+		//エビデンス取得
 		getEvidence(new Object() {
 		});
 

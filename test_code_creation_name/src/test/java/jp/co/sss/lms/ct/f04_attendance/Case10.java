@@ -96,7 +96,7 @@ public class Case10 {
 	@Order(3)
 	@DisplayName("テスト03 上部メニューの「勤怠」リンクから勤怠管理画面に遷移")
 	void test03() {
-		//上部メニューの「ようこそ●●さん」をクリック
+		//上部メニューの「勤怠」をクリック
 		webDriver.findElement(By.partialLinkText("勤怠")).click();
 
 		//未入力アラートが表示されたら、「OK」をクリック

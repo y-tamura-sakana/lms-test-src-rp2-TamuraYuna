@@ -108,7 +108,7 @@ public class Case16 {
 	@Test
 	@Order(3)
 	@DisplayName("テスト03 「同意します」チェックボックスにチェックを入れ「次へ」ボタン押下")
-	void test03() throws InterruptedException {
+	void test03() {
 		//画面最大化
 		webDriver.manage().window().maximize();
 		scrollBy(down);
@@ -119,9 +119,13 @@ public class Case16 {
 		// 「次へ」ボタンをクリック
 		webDriver.findElement(By.className("btn-primary")).click();
 
-		Thread.sleep(5000);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
-		//エビデンス取得（エラーメッセージ）
+		//エビデンス取得（遷移）
 		getEvidence(new Object() {
 		});
 
